@@ -14,7 +14,6 @@
          <a href="new">Agregar nuevo producto</a>
          &nbsp;&nbsp;&nbsp;
          <a href="list">Listar todos los productos</a>
-         
         </h2>
  </center>
 	<div align="center">

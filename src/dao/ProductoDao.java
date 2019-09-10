@@ -16,7 +16,8 @@ public class ProductoDao
     private String jdbcUsername = "root";
     private String jdbcPassword = "123";
     
-    private static final String INSERT = "INSERT INTO productos (descripcion) VALUES (?);";
+    private static final String INSERT = "INSERT INTO productos" + "  (descripcion) VALUES " +
+            " (?);";;
     private static final String SELECT_PROD_BY_ID = "select idProducto,descripcion from productos where idProducto =?";
     private static final String SELECT = "select * from productos";
     private static final String DELETE = "delete from productos where idProducto = ?;";
@@ -109,7 +110,7 @@ public class ProductoDao
         return rowDeleted;
     }
 
-    public boolean updateUser(Producto prod) throws SQLException {
+    public boolean updateProd(Producto prod) throws SQLException {
         boolean rowUpdated;
         try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE);) {
             statement.setString(1, prod.getDescripcion());

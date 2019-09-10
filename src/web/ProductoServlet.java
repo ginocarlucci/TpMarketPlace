@@ -127,13 +127,13 @@ public class ProductoServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("idProducto"));
         String descripcion = request.getParameter("descripcion");
         Producto updProd = new Producto(id, descripcion);
-        productoDao.updateUser(updProd);
+        productoDao.updateProd(updProd);
         response.sendRedirect("list");
     }
     
     private void deleteProd(HttpServletRequest request, HttpServletResponse response)
     throws SQLException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("idProducto"));
         productoDao.deleteProd(id);
         response.sendRedirect("list");
 
