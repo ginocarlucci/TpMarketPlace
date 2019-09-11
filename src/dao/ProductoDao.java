@@ -7,16 +7,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import dao.Conexion;
 import model.Producto;
 
 public class ProductoDao 
 {
-    private String jdbcURL = "jdbc:mysql://localhost:3306/marketplace";
-    private String jdbcUsername = "root";
-    private String jdbcPassword = "123";
+
     
-    private static final String INSERT = "INSERT INTO productos" + "  (descripcion) VALUES " +
+    private static final String INSERT = "INSERT INTO productos" + "(descripcion) VALUES" +
             " (?);";;
     private static final String SELECT_PROD_BY_ID = "select idProducto,descripcion from productos where idProducto =?";
     private static final String SELECT = "select * from productos";
@@ -25,27 +23,13 @@ public class ProductoDao
     
     public ProductoDao() {}
     
-    protected Connection getConnection() 
-    {
-        Connection connection = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return connection;
-    }
+
 
     public void insertProd(Producto prod) throws SQLException 
     {
         System.out.println(INSERT);
         // try-with-resource statement will auto close the connection.
-        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT)) {
+        try (Connection connection = Conexion.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT)) {
             preparedStatement.setString(1, prod.getDescripcion());
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
@@ -57,7 +41,7 @@ public class ProductoDao
     public Producto selectProd(int id) {
         Producto prod = null;
         // Step 1: Establishing a Connection
-        try (Connection connection = getConnection();
+        try (Connection connection = Conexion.getConnection();
             // Step 2:Create a statement using connection object
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PROD_BY_ID);) {
             preparedStatement.setInt(1, id);
@@ -81,7 +65,7 @@ public class ProductoDao
         // using try-with-resources to avoid closing resources (boiler plate code)
         List < Producto > productos = new ArrayList < > ();
         // Step 1: Establishing a Connection
-        try (Connection connection = getConnection();
+        try (Connection connection = Conexion.getConnection();
 
             // Step 2:Create a statement using connection object
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT);) {
@@ -103,7 +87,7 @@ public class ProductoDao
     
     public boolean deleteProd(int id) throws SQLException {
         boolean rowDeleted;
-        try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE);) {
+        try (Connection connection = Conexion.getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE);) {
             statement.setInt(1, id);
             rowDeleted = statement.executeUpdate() > 0;
         }
@@ -112,7 +96,7 @@ public class ProductoDao
 
     public boolean updateProd(Producto prod) throws SQLException {
         boolean rowUpdated;
-        try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE);) {
+        try (Connection connection = Conexion.getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE);) {
             statement.setString(1, prod.getDescripcion());
             statement.setInt(2, prod.getIdProducto());
             rowUpdated = statement.executeUpdate() > 0;
