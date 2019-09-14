@@ -45,13 +45,13 @@ public class ProductoDao
     {
         System.out.println(INSERT);
         // try-with-resource statement will auto close the connection.
-        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT)) {
+        try (Connection connection = getConnection();
+        	 PreparedStatement preparedStatement = connection.prepareStatement(INSERT)) {
             preparedStatement.setString(1, prod.getDescripcion());
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Error aca <-");
-        	printSQLException(e);
+            printSQLException(e);
         }
     }
 
