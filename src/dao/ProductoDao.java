@@ -14,7 +14,7 @@ public class ProductoDao
 {
     private String jdbcURL = "jdbc:mysql://localhost:3306/marketplace";
     private String jdbcUsername = "root";
-    private String jdbcPassword = "123";
+    private String jdbcPassword = "root";
     
     private static final String INSERT = "INSERT INTO productos" + "  (descripcion) VALUES " +
             " (?);";;
@@ -50,7 +50,8 @@ public class ProductoDao
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            printSQLException(e);
+            System.out.println("Error aca <-");
+        	printSQLException(e);
         }
     }
 

@@ -13,6 +13,7 @@ public class Producto
 	public String getDescripcion() {
 		return descripcion;
 	}
+	///sdfasf
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
