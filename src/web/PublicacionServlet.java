@@ -11,41 +11,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.ProductoDao;
-import model.Producto;
-
-
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import dao.PublicacionDao;
+import model.Publicacion;
 
 /**
- * Servlet implementation class ProductoServlet
+ * Servlet implementation class PublicacionServlet
  */
-@WebServlet("/asd")
-public class ProductoServlet extends HttpServlet {
+@WebServlet("/")
+public class PublicacionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ProductoDao productoDao;
+	private PublicacionDao publicacionDao;
 	
 	public void init() 
 	{
-	 productoDao = new ProductoDao();	
+		publicacionDao = new PublicacionDao();	
 	}
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductoServlet() {
+    public PublicacionServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -66,19 +51,19 @@ public class ProductoServlet extends HttpServlet {
                     showNewForm(request, response);
                     break;
                 case "/insert":
-                	insertProd(request, response);
+                	insertPub(request, response);
                     break;
                 case "/delete":
-                	deleteProd(request, response);
+                	deletePub(request, response);
                     break;
                 case "/edit":
                     showEditForm(request, response);
                     break;
                 case "/update":
-                	updateProd(request, response);
+                	updatePub(request, response);
                     break;
                 default:
-                	listProducto(request, response);
+                	listPub(request, response);
                     break;
             }
         } catch (SQLException ex) 
@@ -87,59 +72,62 @@ public class ProductoServlet extends HttpServlet {
         }
     }
 	
-    private void listProducto(HttpServletRequest request, HttpServletResponse response)
+    private void listPub(HttpServletRequest request, HttpServletResponse response)
     throws SQLException, IOException, ServletException 
     {
-        List < Producto > listProducto = productoDao.selectAllProd();
-        request.setAttribute("listProducto", listProducto);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/prod-list.jsp");
+        List < Publicacion > listPublicacion = publicacionDao.selectAllPub();
+        request.setAttribute("listPublicacion", listPublicacion);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/index.jsp");
         dispatcher.forward(request, response);
     }
     
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
     	    throws ServletException, IOException 
     {
-    	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/prod-form.jsp");
+    	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pub-form.jsp");
     	        dispatcher.forward(request, response);
     }
     
     private void showEditForm(HttpServletRequest request, HttpServletResponse response)
     	    throws SQLException, ServletException, IOException 
     {
-    	        int id = Integer.parseInt(request.getParameter("idProducto"));
-    	        Producto existingProducto = productoDao.selectProd(id);
-    	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/prod-form.jsp");
-    	        request.setAttribute("producto", existingProducto);
+    	        int id = Integer.parseInt(request.getParameter("idPublicacion"));
+    	        Publicacion existingPublicacion = publicacionDao.selectPub(id);
+    	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pub-form.jsp");
+    	        request.setAttribute("publicacion", existingPublicacion);
     	        dispatcher.forward(request, response);
 
     }
     
-    private void insertProd(HttpServletRequest request, HttpServletResponse response)
+    private void insertPub(HttpServletRequest request, HttpServletResponse response)
     throws SQLException, IOException {
         String descripcion = request.getParameter("descripcion");
-        Producto newProd = new Producto(descripcion);
-        productoDao.insertProd(newProd);
+        String titulo = request.getParameter("titulo");
+        Double precio = Double.parseDouble(request.getParameter("precio"));
+        int stock = Integer.parseInt(request.getParameter("stock"));
+        Publicacion newPub = new Publicacion(stock,titulo,descripcion,precio);
+        publicacionDao.insertPub(newPub);
         response.sendRedirect("list");
     }
     
-    private void updateProd(HttpServletRequest request, HttpServletResponse response)
+    private void updatePub(HttpServletRequest request, HttpServletResponse response)
     throws SQLException, IOException {
-        int id = Integer.parseInt(request.getParameter("idProducto"));
+        int id = Integer.parseInt(request.getParameter("idPublicacion"));
         String descripcion = request.getParameter("descripcion");
-        Producto updProd = new Producto(id, descripcion);
-        productoDao.updateProd(updProd);
+        String titulo = request.getParameter("titulo");
+        Double precio = Double.parseDouble(request.getParameter("precio"));
+        int stock = Integer.parseInt(request.getParameter("stock"));
+        Publicacion updPub = new Publicacion(id,stock,titulo,descripcion,precio);
+        publicacionDao.updatePub(updPub);
         response.sendRedirect("list");
     }
     
-    private void deleteProd(HttpServletRequest request, HttpServletResponse response)
+    private void deletePub(HttpServletRequest request, HttpServletResponse response)
     throws SQLException, IOException {
-        int id = Integer.parseInt(request.getParameter("idProducto"));
-        productoDao.deleteProd(id);
+        int id = Integer.parseInt(request.getParameter("idPublicacion"));
+        publicacionDao.deletePub(id);
         response.sendRedirect("list");
-
     }
-
-
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
