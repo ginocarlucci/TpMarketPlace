@@ -39,7 +39,7 @@ public class ProductoServlet extends HttpServlet {
 	
 	public void init() 
 	{
-	 productoDao = new ProductoDao();	
+	 productoDao = new ProductoDao();
 	}
        
     /**
