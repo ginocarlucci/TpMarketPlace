@@ -16,12 +16,13 @@ public class PublicacionDao
 {
 
     
-    private static final String INSERT = "INSERT INTO publicaciones" + "(descripcion, precio, titulo, stock) VALUES" +
-            " (?,?,?,?);";;
+    private static final String INSERT = "INSERT INTO publicaciones" + "(descripcion, precio, titulo, stock, idCategoria, idCiudad) VALUES" +
+            " (?,?,?,?,?);";;
     private static final String SELECT_PUB_BY_ID = "select idPublicacion from publicaciones where idPublicacion = ?";
     private static final String SELECT = "select * from publicaciones";
+    private static final String SELECT_PUB_BY_CATEGORIA = "select * from publicaciones where idCategoria = ?";
     private static final String DELETE = "delete from publicaciones where idPublicacion = ?;";
-    private static final String UPDATE = "update publicaciones set descripcion = ?, precio = ?, titulo = ?, stock = ? where idProducto = ?;";
+    private static final String UPDATE = "update publicaciones set descripcion = ?, precio = ?, titulo = ?, stock = ?, idCategoria = ?, idCiudad = ? where idProducto = ?;";
     
     public PublicacionDao() {}
     
@@ -36,6 +37,8 @@ public class PublicacionDao
             preparedStatement.setDouble(2, pub.getPrecio());
             preparedStatement.setString(3, pub.getTitulo());
             preparedStatement.setInt(4, pub.getStock());
+            preparedStatement.setInt(5, pub.getIdCategoria());
+            preparedStatement.setInt(6, pub.getIdCiudad());
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -59,14 +62,48 @@ public class PublicacionDao
                 String descripcion = rs.getString("descripcion");
                 Double precio = rs.getDouble("precio");
                 String titulo = rs.getString("titulo");
+                int idCategoria = rs.getInt("idCategoria");
+                int idCiudad = rs.getInt("idCiudad");
                 int stock = rs.getInt("stock");
                 
-                pub = new Publicacion(id, stock, titulo, descripcion, precio);
+                pub = new Publicacion(id, idCategoria, idCiudad,stock, titulo, descripcion, precio);
             }
         } catch (SQLException e) {
             printSQLException(e);
         }
         return pub;
+    }
+    
+    public List < Publicacion > selectAllPubByCat(int idCat) {
+
+        // using try-with-resources to avoid closing resources (boiler plate code)
+        List < Publicacion > publicaciones = new ArrayList < > ();
+        // Step 1: Establishing a Connection
+        try (Connection connection = Conexion.getConnection();
+
+            // Step 2:Create a statement using connection object
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PUB_BY_CATEGORIA);) {
+        	preparedStatement.setInt(1, idCat);
+            System.out.println(preparedStatement);
+            // Step 3: Execute the query or update query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+                int idPublicacion = rs.getInt("idPublicacion");
+                int idCategoria = rs.getInt("idCategoria");
+                String descripcion = rs.getString("descripcion");
+                Double precio = rs.getDouble("precio");
+                int idCiudad = rs.getInt("idCiudad");
+                String titulo = rs.getString("titulo");
+                int stock = rs.getInt("stock");
+                
+                publicaciones.add(new Publicacion(idPublicacion, idCategoria,idCiudad,stock, titulo, descripcion, precio));
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return publicaciones;
     }
 
     public List < Publicacion > selectAllPub() {
@@ -85,12 +122,14 @@ public class PublicacionDao
             // Step 4: Process the ResultSet object.
             while (rs.next()) {
                 int idPublicacion = rs.getInt("idPublicacion");
+                int idCategoria = rs.getInt("idCategoria");
                 String descripcion = rs.getString("descripcion");
                 Double precio = rs.getDouble("precio");
+                int idCiudad = rs.getInt("idCiudad");
                 String titulo = rs.getString("titulo");
                 int stock = rs.getInt("stock");
                 
-                publicaciones.add(new Publicacion(idPublicacion, stock, titulo, descripcion, precio));
+                publicaciones.add(new Publicacion(idPublicacion, idCategoria,idCiudad,stock, titulo, descripcion, precio));
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -114,7 +153,10 @@ public class PublicacionDao
             statement.setDouble(2, pub.getPrecio());
             statement.setString(3, pub.getTitulo());
             statement.setInt(4, pub.getStock());
-            statement.setInt(5, pub.getIdPublicacion());
+            statement.setInt(5, pub.getIdCategoria());
+            statement.setInt(6, pub.getIdCiudad());
+            statement.setInt(7, pub.getIdPublicacion());
+            
             rowUpdated = statement.executeUpdate() > 0;
         }
         return rowUpdated;

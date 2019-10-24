@@ -3,7 +3,7 @@ package model;
 public class Ciudad 
 {
 	private String nombre;
-	private int codPostal;
+	private int idCiudad;
 	
 	public String getNombre() {
 		return nombre;
@@ -11,16 +11,16 @@ public class Ciudad
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public int getCodPostal() {
-		return codPostal;
+	public int getIdCiudad() {
+		return idCiudad;
 	}
-	public void setCodPostal(int codPostal) {
-		this.codPostal = codPostal;
+	public void setIdCiudad(int idCiudad) {
+		this.idCiudad = idCiudad;
 	}
 	
-	public Ciudad(String nombre, int codPostal) {
+	public Ciudad(int idCiudad, String nombre) {
+		this.idCiudad = idCiudad;
 		this.nombre = nombre;
-		this.codPostal = codPostal;
 	}
 
 }

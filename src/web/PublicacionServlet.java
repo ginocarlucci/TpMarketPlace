@@ -11,8 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.CategoriaDao;
 import dao.PublicacionDao;
+import dao.CiudadDao;
+import model.Categoria;
 import model.Publicacion;
+import model.Ciudad;;
 
 /**
  * Servlet implementation class PublicacionServlet
@@ -21,10 +25,14 @@ import model.Publicacion;
 public class PublicacionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private PublicacionDao publicacionDao;
+	private CategoriaDao categoriaDao;
+	private CiudadDao ciudadDao;
 	
 	public void init() 
 	{
-		publicacionDao = new PublicacionDao();	
+		publicacionDao = new PublicacionDao();
+		categoriaDao = new CategoriaDao();
+		ciudadDao = new CiudadDao();
 	}
        
     /**
@@ -62,6 +70,9 @@ public class PublicacionServlet extends HttpServlet {
                 case "/update":
                 	updatePub(request, response);
                     break;
+                case "/refrescar":
+                	listPubByCat(request, response);
+                    break;
                 default:
                 	listPub(request, response);
                     break;
@@ -76,10 +87,28 @@ public class PublicacionServlet extends HttpServlet {
     throws SQLException, IOException, ServletException 
     {
         List < Publicacion > listPublicacion = publicacionDao.selectAllPub();
+        List < Categoria > listCategoria = categoriaDao.selectAll();
+        List < Ciudad > listCiudad = ciudadDao.selectAll();
         request.setAttribute("listPublicacion", listPublicacion);
+        request.setAttribute("listCategoria", listCategoria);
+        request.setAttribute("listCiudad", listCiudad);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/index.jsp");
         dispatcher.forward(request, response);
     }
+    
+    private void listPubByCat(HttpServletRequest request, HttpServletResponse response)
+    	    throws SQLException, IOException, ServletException 
+    	    {
+    			int idCat = Integer.parseInt(request.getParameter("categoria"));
+    	        List < Publicacion > listPublicacion = publicacionDao.selectAllPubByCat(idCat);
+    	        List < Categoria > listCategoria = categoriaDao.selectAll();
+    	        List < Ciudad > listCiudad = ciudadDao.selectAll();
+    	        request.setAttribute("listPublicacion", listPublicacion);
+    	        request.setAttribute("listCategoria", listCategoria);
+    	        request.setAttribute("listCiudad", listCiudad);
+    	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/index.jsp");
+    	        dispatcher.forward(request, response);
+    	    }
     
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
     	    throws ServletException, IOException 
@@ -105,6 +134,8 @@ public class PublicacionServlet extends HttpServlet {
         String titulo = request.getParameter("titulo");
         Double precio = Double.parseDouble(request.getParameter("precio"));
         int stock = Integer.parseInt(request.getParameter("stock"));
+        int idCategoria = Integer.parseInt(request.getParameter("idCategoria"));
+        int idCiudad = Integer.parseInt(request.getParameter("idCiudad"));
         Publicacion newPub = new Publicacion(stock,titulo,descripcion,precio);
         publicacionDao.insertPub(newPub);
         response.sendRedirect("list");
@@ -117,7 +148,9 @@ public class PublicacionServlet extends HttpServlet {
         String titulo = request.getParameter("titulo");
         Double precio = Double.parseDouble(request.getParameter("precio"));
         int stock = Integer.parseInt(request.getParameter("stock"));
-        Publicacion updPub = new Publicacion(id,stock,titulo,descripcion,precio);
+        int idCategoria = Integer.parseInt(request.getParameter("idCategoria"));
+        int idCiudad = Integer.parseInt(request.getParameter("idCiudad"));
+        Publicacion updPub = new Publicacion(id,idCategoria,idCiudad,stock,titulo,descripcion,precio);
         publicacionDao.updatePub(updPub);
         response.sendRedirect("list");
     }
