@@ -101,7 +101,7 @@ public class Publicaciones_FormasDePagoDao {
 	        return rowDeleted;
 	    }
 	    
-	    public boolean updatePub(Publicaciones_FormasDePago pub_frm) throws SQLException {
+	 public boolean updatePub(Publicaciones_FormasDePago pub_frm) throws SQLException {
 	        boolean rowUpdated;
 	        try (Connection connection = Conexion.getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE);) {
 	        	statement.setInt(1, pub_frm.getIdPublicacion());
