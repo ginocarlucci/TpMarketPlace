@@ -6,10 +6,9 @@ public class Publicacion
 	private String titulo,descripcion;
 	private double precio;
 	
-	public Publicacion(int idPublicacion, int idCategoria, int idCiudad, int stock, String titulo, String descripcion, double precio) {
+	public Publicacion(int idPublicacion, int idCategoria, int stock, String titulo, String descripcion, double precio) {
 		this.idPublicacion = idPublicacion;
 		this.idCategoria = idCategoria;
-		this.idCiudad = idCiudad;
 		this.stock = stock;
 		this.titulo = titulo;
 		this.descripcion = descripcion;

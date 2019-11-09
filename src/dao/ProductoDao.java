@@ -13,8 +13,8 @@ import model.Producto;
 public class ProductoDao 
 {
     private String jdbcURL = "jdbc:mysql://localhost:3306/marketplace";
-    private String jdbcUsername = "root";
-    private String jdbcPassword = "root";
+    private String jdbcUsername = "java";
+    private String jdbcPassword = "java";
     
     private static final String INSERT = "INSERT INTO productos" + "  (descripcion) VALUES " +
             " (?);";;

@@ -7,8 +7,8 @@ import java.sql.SQLException;
 public class Conexion 
 {
     static private String jdbcURL = "jdbc:mysql://localhost:3306/marketplace";
-    static private String jdbcUsername = "root";
-    static private String jdbcPassword = "123";
+    static private String jdbcUsername = "java";
+    static private String jdbcPassword = "java";
     
     protected static Connection getConnection() 
     {

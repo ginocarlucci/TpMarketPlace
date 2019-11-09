@@ -63,10 +63,9 @@ public class PublicacionDao
                 Double precio = rs.getDouble("precio");
                 String titulo = rs.getString("titulo");
                 int idCategoria = rs.getInt("idCategoria");
-                int idCiudad = rs.getInt("idCiudad");
                 int stock = rs.getInt("stock");
                 
-                pub = new Publicacion(id, idCategoria, idCiudad,stock, titulo, descripcion, precio);
+                pub = new Publicacion(id, idCategoria,stock, titulo, descripcion, precio);
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -90,15 +89,14 @@ public class PublicacionDao
 
             // Step 4: Process the ResultSet object.
             while (rs.next()) {
-                int idPublicacion = rs.getInt("idPublicacion");
+                int idPublicacion = rs.getInt("id");
                 int idCategoria = rs.getInt("idCategoria");
                 String descripcion = rs.getString("descripcion");
                 Double precio = rs.getDouble("precio");
-                int idCiudad = rs.getInt("idCiudad");
                 String titulo = rs.getString("titulo");
                 int stock = rs.getInt("stock");
                 
-                publicaciones.add(new Publicacion(idPublicacion, idCategoria,idCiudad,stock, titulo, descripcion, precio));
+                publicaciones.add(new Publicacion(idPublicacion, idCategoria,stock, titulo, descripcion, precio));
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -121,15 +119,16 @@ public class PublicacionDao
 
             // Step 4: Process the ResultSet object.
             while (rs.next()) {
-                int idPublicacion = rs.getInt("idPublicacion");
+                int idPublicacion = rs.getInt("id");
                 int idCategoria = rs.getInt("idCategoria");
                 String descripcion = rs.getString("descripcion");
                 Double precio = rs.getDouble("precio");
-                int idCiudad = rs.getInt("idCiudad");
                 String titulo = rs.getString("titulo");
                 int stock = rs.getInt("stock");
                 
-                publicaciones.add(new Publicacion(idPublicacion, idCategoria,idCiudad,stock, titulo, descripcion, precio));
+                Publicacion publi = new Publicacion(idPublicacion, idCategoria,stock, titulo, descripcion, precio);
+                System.out.println(publi.getDescripcion());
+                publicaciones.add(publi);
             }
         } catch (SQLException e) {
             printSQLException(e);
