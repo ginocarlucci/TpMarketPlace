@@ -24,10 +24,10 @@
                 <th>Descripcion</th>
                 <th>Actions</th>
             </tr>
-            <c:forEach var="producto" items="${listProducto}">
+            <c:forEach var="publicacion" items="${listPub}">
                 <tr>
-                    <td><c:out value="${producto.idProducto}" /></td>
-                    <td><c:out value="${producto.descripcion}" /></td>
+                    <td><c:out value="${publicacion.idCategoria}" /></td>
+                    <td><c:out value="${publicacion.nombre}" /></td>
                     <td>
                      <a href="edit?idProducto=<c:out value='${producto.idProducto}' />">Edit</a>
                      &nbsp;&nbsp;&nbsp;&nbsp;

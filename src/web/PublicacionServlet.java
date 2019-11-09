@@ -24,6 +24,7 @@ import model.Ciudad;;
 @WebServlet("/")
 public class PublicacionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	private PublicacionDao publicacionDao;
 	private CategoriaDao categoriaDao;
 	private CiudadDao ciudadDao;
@@ -91,7 +92,7 @@ public class PublicacionServlet extends HttpServlet {
         List < Ciudad > listCiudad = ciudadDao.GetAll();
         request.setAttribute("listPublicacion", listPublicacion);
         request.setAttribute("listCategoria", listCategoria);
-        request.setAttribute("listCiudad", listCiudad);
+      ///  request.setAttribute("listCiudad", listCiudad);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/index.jsp");
         dispatcher.forward(request, response);
     }
@@ -135,7 +136,6 @@ public class PublicacionServlet extends HttpServlet {
         Double precio = Double.parseDouble(request.getParameter("precio"));
         int stock = Integer.parseInt(request.getParameter("stock"));
         int idCategoria = Integer.parseInt(request.getParameter("idCategoria"));
-        int idCiudad = Integer.parseInt(request.getParameter("idCiudad"));
         Publicacion newPub = new Publicacion(stock,titulo,descripcion,precio);
         publicacionDao.insertPub(newPub);
         response.sendRedirect("list");
@@ -149,8 +149,7 @@ public class PublicacionServlet extends HttpServlet {
         Double precio = Double.parseDouble(request.getParameter("precio"));
         int stock = Integer.parseInt(request.getParameter("stock"));
         int idCategoria = Integer.parseInt(request.getParameter("idCategoria"));
-        int idCiudad = Integer.parseInt(request.getParameter("idCiudad"));
-        Publicacion updPub = new Publicacion(id,idCategoria,idCiudad,stock,titulo,descripcion,precio);
+        Publicacion updPub = new Publicacion(id,idCategoria,stock,titulo,descripcion,precio);
         publicacionDao.updatePub(updPub);
         response.sendRedirect("list");
     }
