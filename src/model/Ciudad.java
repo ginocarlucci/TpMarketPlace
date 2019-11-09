@@ -2,25 +2,33 @@ package model;
 
 public class Ciudad 
 {
+	private int id, idProvincia;
 	private String nombre;
-	private int idCiudad;
-	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getIdProvincia() {
+		return idProvincia;
+	}
+	public void setIdProvincia(int idProvincia) {
+		this.idProvincia = idProvincia;
+	}
 	public String getNombre() {
 		return nombre;
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public int getIdCiudad() {
-		return idCiudad;
-	}
-	public void setIdCiudad(int idCiudad) {
-		this.idCiudad = idCiudad;
-	}
-	
-	public Ciudad(int idCiudad, String nombre) {
-		this.idCiudad = idCiudad;
+	public Ciudad(int id, int idProvincia, String nombre) {
+		super();
+		this.id = id;
+		this.idProvincia = idProvincia;
 		this.nombre = nombre;
 	}
-
+	
+	public Ciudad() {
+	}
 }

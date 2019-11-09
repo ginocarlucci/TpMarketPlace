@@ -10,7 +10,6 @@ import java.util.List;
 //import com.sun.xml.internal.bind.v2.model.runtime.RuntimeArrayInfo;
 
 import dao.Conexion;
-import model.Publicacion;
 import model.Usuario;
 
 public class UsuarioDao 
