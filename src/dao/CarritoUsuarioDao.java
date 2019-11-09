@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,22 +10,24 @@ import java.util.List;
 //import com.sun.xml.internal.bind.v2.model.runtime.RuntimeArrayInfo;
 
 import dao.Conexion;
-import model.Compra;
+import model.Carrito_Usuario;
+import model.Usuario;
 
-public class CompraDao 
+
+public class CarritoUsuarioDao 
 {
-	private static final String INSERT = "INSERT INTO compra" + "(fechaHora, idFormaDePago, importe, envioPrecio, idEstado) VALUES" +
-            " (?,?,?,?,?,?);";
-    private static final String SELECT_CMP_BY_ID = "select * from compra where id = ?";
-    private static final String SELECT = "select * from compra";
-    private static final String DELETE = "delete from compra where id = ?;";
-    private static final String UPDATE = "update compra set fechaHora=?, idFormaDePago=?, importe=?, envioPrecio=?, idEstado=?, where id = ?;";
+	private static final String INSERT = "INSERT INTO carritos_usuario" + "(idCarrito, idPublicacion) VALUES" +
+            " (?,?);";
+    private static final String SELECT_CARUSR_BY_ID = "select * from carritos_usuario where id = ?";
+    private static final String SELECT = "select * from carritos_usuario";
+    private static final String DELETE = "delete from carritos_usuario where id = ?;";
+    private static final String UPDATE = "update carritos_usuario set idCarrito=?, idPublicacion=?, where id = ?;";
     
-    public CompraDao() {}
+    public CarritoUsuarioDao() {}
     
-    public List < Compra > GetAll() {
+    public List < Carrito_Usuario > GetAll() {
         // using try-with-resources to avoid closing resources (boiler plate code)
-        List < Compra > compras = new ArrayList < > ();
+        List < Carrito_Usuario > carritos_usuarios = new ArrayList < > ();
         // Step 1: Establishing a Connection
         try (Connection connection = Conexion.getConnection();
 
@@ -39,31 +40,25 @@ public class CompraDao
             // Step 4: Process the ResultSet object.
             while (rs.next()) {
             	int id = rs.getInt("id");
-            	int idFormaDePago = rs.getInt("idFormaDePago");
-            	Date fechaHora = rs.getDate("fechaHora");
-            	Double envioPrecio = rs.getDouble("envioPrecio");
-            	Double importe = rs.getDouble("importe");
-            	int idEstado = rs.getInt("idEstado");
-                
-                compras.add(new Compra(id, idFormaDePago, idEstado, importe, envioPrecio, fechaHora));
+            	int idCarrito = rs.getInt("idCarrito");
+            	int idPublicacion = rs.getInt("idPublicacion");
+
+            	carritos_usuarios.add(new Carrito_Usuario(id,idCarrito,idPublicacion));
             }
         } catch (SQLException e) {
             printSQLException(e);
         }
-        return compras;
+        return carritos_usuarios;
     }
  
-//fechaHora, idFormaDePago, importe, envioPrecio, idEstado
-    public void Insert(Compra cmp) throws SQLException 
+
+    public void Insert(Carrito_Usuario cu) throws SQLException 
     {
         System.out.println(INSERT);
         // try-with-resource statement will auto close the connection.
         try (Connection connection = Conexion.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT)) {
-            preparedStatement.setDate(1, cmp.getFechaHora());
-            preparedStatement.setInt(2,cmp.getIdFormaPago());
-            preparedStatement.setDouble(3,cmp.getImporte());
-            preparedStatement.setDouble(4, cmp.getEnvioPrecio());
-            preparedStatement.setInt(5, cmp.getIdEstado());
+            preparedStatement.setInt(1, cu.getIdCarrito());
+            preparedStatement.setInt(2, cu.getIdPublicacion());
             
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
@@ -72,12 +67,12 @@ public class CompraDao
         }
     }
 
-    public Compra GetOne(int id) {
-    	Compra cmp = null; 
+    public Carrito_Usuario GetOne(int id) {
+    	Carrito_Usuario cu = null; 
         // Step 1: Establishing a Connection
         try (Connection connection = Conexion.getConnection();
             // Step 2:Create a statement using connection object
-            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CMP_BY_ID);) {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CARUSR_BY_ID);) {
             preparedStatement.setInt(1, id);
             System.out.println(preparedStatement);
             // Step 3: Execute the query or update query
@@ -85,18 +80,14 @@ public class CompraDao
 
             // Step 4: Process the ResultSet object.
             while (rs.next()) {
-            	int idFormaDePago = rs.getInt("idFormaDePago");
-            	Date fechaHora = rs.getDate("fechaHora");
-            	Double envioPrecio = rs.getDouble("envioPrecio");
-            	Double importe = rs.getDouble("importe");
-            	int idEstado = rs.getInt("idEstado");
-                
-                cmp = new Compra(id, idFormaDePago, idEstado, importe, envioPrecio, fechaHora);
+            	int idCarrito = rs.getInt("idCarrito");
+            	int idPublicacion = rs.getInt("idPublicacion");
+                cu = new Carrito_Usuario(id,idCarrito,idPublicacion);
             }
         } catch (SQLException e) {
             printSQLException(e);
         }
-        return cmp;
+        return cu;
     }
 
     
@@ -109,17 +100,12 @@ public class CompraDao
         return rowDeleted;
     }
 
-    //"update compra set fechaHora=?, idFormaDePago=?, importe=?, envioPrecio=?, idEstado=?, where id = ?;"
-    public boolean Update(Compra cmp) throws SQLException {
+    public boolean Update(Carrito_Usuario cu) throws SQLException {
         boolean rowUpdated;
         try (Connection connection = Conexion.getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE);) {
-            statement.setDate(1, cmp.getFechaHora());
-            statement.setInt(2, cmp.getIdFormaPago());
-            statement.setDouble(3, cmp.getImporte());
-            statement.setDouble(4, cmp.getEnvioPrecio());
-            statement.setInt(5, cmp.getIdEstado());
-            statement.setInt(6, cmp.getId());
-           
+        	statement.setInt(1, cu.getIdCarrito());
+        	statement.setInt(2, cu.getIdPublicacion());
+            statement.setInt(3, cu.getId());
             
             rowUpdated = statement.executeUpdate() > 0;
         }

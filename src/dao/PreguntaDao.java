@@ -93,7 +93,6 @@ public class PreguntaDao
 
             // Step 4: Process the ResultSet object.
             while (rs.next()) {
-            	id = rs.getInt("id");
                 String pregunta = rs.getString("pregunta");
                 String respuesta = rs.getString("respuesta");
                 int idEmisor = rs.getInt("idEmisor");
