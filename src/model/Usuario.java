@@ -2,85 +2,72 @@ package model;
 
 public class Usuario 
 {
-	private String nombre, apellido, usuario, contraseña, email, domicilio;
-	private boolean admin;
-	private int telefono;
+	private int id, idCiudad, admin;
+	private String nombreYApellido, password, email, domicilio, telefono;
 	
-	public String getNombre() {
-		return nombre;
+	public int getId() {
+		return id;
 	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setId(int id) {
+		this.id = id;
 	}
-
-	public String getApellido() {
-		return apellido;
+	public int getIdCiudad() {
+		return idCiudad;
 	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+	public void setIdCiudad(int idCiudad) {
+		this.idCiudad = idCiudad;
 	}
-
-	public String getUsuario() {
-		return usuario;
+	public int getAdmin() {
+		return admin;
 	}
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setAdmin(int admin) {
+		this.admin = admin;
 	}
-
-	public String getContraseña() {
-		return contraseña;
+	public String getNombreYApellido() {
+		return nombreYApellido;
 	}
-
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setNombreYApellido(String nombreYApellido) {
+		this.nombreYApellido = nombreYApellido;
 	}
-
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public String getDomicilio() {
 		return domicilio;
 	}
-
 	public void setDomicilio(String domicilio) {
 		this.domicilio = domicilio;
 	}
-
-	public boolean isAdmin() {
-		return admin;
-	}
-
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
-	}
-
-	public int getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
-
-	public void setTelefono(int telefono) {
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+	public Usuario(int id, int idCiudad, int admin, String nombreYApellido, String password, String email,
+			String domicilio, String telefono) {
+		super();
+		this.id = id;
+		this.idCiudad = idCiudad;
+		this.admin = admin;
+		this.nombreYApellido = nombreYApellido;
+		this.password = password;
+		this.email = email;
+		this.domicilio = domicilio;
 		this.telefono = telefono;
 	}
 	
-	public Usuario(String nombre, String apellido, String usuario, String contraseña, String email, String domicilio,
-			boolean admin, int telefono) {
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.usuario = usuario;
-		this.contraseña = contraseña;
-		this.email = email;
-		this.domicilio = domicilio;
-		this.admin = admin;
-		this.telefono = telefono;
-	}
+	public Usuario() {}
+	
 	
 	
 
