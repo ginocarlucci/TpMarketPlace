@@ -4,9 +4,11 @@ import java.sql.Date;
 
 public class Compra 
 {
-	private int id, idFormaPago, idEstado;
-	private double importe, envioPrecio;
+	
+	private int id, idFormaDePago, idEstado;
 	private Date fechaHora;
+	private double envioPrecio, importe;
+	
 	
 	public int getId() {
 		return id;
@@ -14,11 +16,11 @@ public class Compra
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getIdFormaPago() {
-		return idFormaPago;
+	public int getIdFormaDePago() {
+		return idFormaDePago;
 	}
-	public void setIdFormaPago(int idFormaPago) {
-		this.idFormaPago = idFormaPago;
+	public void setIdFormaDePago(int idFormaDePago) {
+		this.idFormaDePago = idFormaDePago;
 	}
 	public int getIdEstado() {
 		return idEstado;
@@ -26,11 +28,11 @@ public class Compra
 	public void setIdEstado(int idEstado) {
 		this.idEstado = idEstado;
 	}
-	public double getImporte() {
-		return importe;
+	public Date getFechaHora() {
+		return fechaHora;
 	}
-	public void setImporte(double importe) {
-		this.importe = importe;
+	public void setFechaHora(Date fechaHora) {
+		this.fechaHora = fechaHora;
 	}
 	public double getEnvioPrecio() {
 		return envioPrecio;
@@ -38,23 +40,30 @@ public class Compra
 	public void setEnvioPrecio(double envioPrecio) {
 		this.envioPrecio = envioPrecio;
 	}
-	public Date getFechaHora() {
-		return fechaHora;
+	public double getImporte() {
+		return importe;
 	}
-	public void setFechaHora(Date fechaHora) {
-		this.fechaHora = fechaHora;
-	}
-	public Compra(int id, int idFormaPago, int idEstado, double importe, double envioPrecio, Date fechaHora) {
-		super();
-		this.id = id;
-		this.idFormaPago = idFormaPago;
-		this.idEstado = idEstado;
+	public void setImporte(double importe) {
 		this.importe = importe;
-		this.envioPrecio = envioPrecio;
-		this.fechaHora = fechaHora;
 	}
 	
-	public Compra() {}
+	public Compra(int id, Date fechaHora, int idFormaDePago, double importe,  double envioPrecio, int idEstado) {
+		super();
+		this.id = id;
+		this.idFormaDePago = idFormaDePago;
+		this.idEstado = idEstado;
+		this.fechaHora = fechaHora;
+		this.envioPrecio = envioPrecio;
+		this.importe = importe;
+	}
+	
+	
+	public Compra() {
+		super();
+	}
+	
+	
+	
 	
 	
 }

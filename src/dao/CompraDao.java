@@ -15,8 +15,7 @@ import model.Compra;
 
 public class CompraDao 
 {
-	private static final String INSERT = "INSERT INTO compra" + "(fechaHora, idFormaDePago, importe, envioPrecio, idEstado) VALUES" +
-            " (?,?,?,?,?,?);";
+	private static final String INSERT = "INSERT INTO compra" + "(fechaHora, idFormaDePago, importe, envioPrecio, idEstado) VALUES" +" (?,?,?,?,?,?);";
     private static final String SELECT_CMP_BY_ID = "select * from compra where id = ?";
     private static final String SELECT = "select * from compra";
     private static final String DELETE = "delete from compra where id = ?;";
@@ -45,7 +44,7 @@ public class CompraDao
             	Double importe = rs.getDouble("importe");
             	int idEstado = rs.getInt("idEstado");
                 
-                compras.add(new Compra(id, idFormaDePago, idEstado, importe, envioPrecio, fechaHora));
+                compras.add(new Compra(id, fechaHora, idFormaDePago, importe, envioPrecio, idEstado));
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -53,14 +52,14 @@ public class CompraDao
         return compras;
     }
  
-//fechaHora, idFormaDePago, importe, envioPrecio, idEstado
+
     public void Insert(Compra cmp) throws SQLException 
     {
         System.out.println(INSERT);
         // try-with-resource statement will auto close the connection.
         try (Connection connection = Conexion.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT)) {
             preparedStatement.setDate(1, cmp.getFechaHora());
-            preparedStatement.setInt(2,cmp.getIdFormaPago());
+            preparedStatement.setInt(2,cmp.getIdFormaDePago());
             preparedStatement.setDouble(3,cmp.getImporte());
             preparedStatement.setDouble(4, cmp.getEnvioPrecio());
             preparedStatement.setInt(5, cmp.getIdEstado());
@@ -92,7 +91,7 @@ public class CompraDao
             	Double importe = rs.getDouble("importe");
             	int idEstado = rs.getInt("idEstado");
                 
-                cmp = new Compra(id, idFormaDePago, idEstado, importe, envioPrecio, fechaHora);
+                cmp = new Compra(id, fechaHora, idFormaDePago, importe, envioPrecio, idEstado);
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -110,12 +109,11 @@ public class CompraDao
         return rowDeleted;
     }
 
-    //"update compra set fechaHora=?, idFormaDePago=?, importe=?, envioPrecio=?, idEstado=?, where id = ?;"
     public boolean Update(Compra cmp) throws SQLException {
         boolean rowUpdated;
         try (Connection connection = Conexion.getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE);) {
             statement.setDate(1, cmp.getFechaHora());
-            statement.setInt(2, cmp.getIdFormaPago());
+            statement.setInt(2, cmp.getIdFormaDePago());
             statement.setDouble(3, cmp.getImporte());
             statement.setDouble(4, cmp.getEnvioPrecio());
             statement.setInt(5, cmp.getIdEstado());
