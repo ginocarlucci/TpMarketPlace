@@ -88,7 +88,7 @@ public class PublicacionServlet extends HttpServlet {
     {
         List < Publicacion > listPublicacion = publicacionDao.selectAllPub();
         List < Categoria > listCategoria = categoriaDao.selectAll();
-        List < Ciudad > listCiudad = ciudadDao.selectAll();
+        List < Ciudad > listCiudad = ciudadDao.GetAll();
         request.setAttribute("listPublicacion", listPublicacion);
         request.setAttribute("listCategoria", listCategoria);
         request.setAttribute("listCiudad", listCiudad);
@@ -102,7 +102,7 @@ public class PublicacionServlet extends HttpServlet {
     			int idCat = Integer.parseInt(request.getParameter("categoria"));
     	        List < Publicacion > listPublicacion = publicacionDao.selectAllPubByCat(idCat);
     	        List < Categoria > listCategoria = categoriaDao.selectAll();
-    	        List < Ciudad > listCiudad = ciudadDao.selectAll();
+    	        List < Ciudad > listCiudad = ciudadDao.GetAll();
     	        request.setAttribute("listPublicacion", listPublicacion);
     	        request.setAttribute("listCategoria", listCategoria);
     	        request.setAttribute("listCiudad", listCiudad);
