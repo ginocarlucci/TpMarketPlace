@@ -93,7 +93,7 @@ public class PublicacionServlet extends HttpServlet {
         request.setAttribute("listPublicacion", listPublicacion);
         request.setAttribute("listCategoria", listCategoria);
       ///  request.setAttribute("listCiudad", listCiudad);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/index.jsp");
         dispatcher.forward(request, response);
     }
     
@@ -107,14 +107,14 @@ public class PublicacionServlet extends HttpServlet {
     	        request.setAttribute("listPublicacion", listPublicacion);
     	        request.setAttribute("listCategoria", listCategoria);
     	        request.setAttribute("listCiudad", listCiudad);
-    	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/index.jsp");
+    	        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/index.jsp");
     	        dispatcher.forward(request, response);
     	    }
     
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
     	    throws ServletException, IOException 
     {
-    	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pub-form.jsp");
+    	        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/pub-form.jsp");
     	        dispatcher.forward(request, response);
     }
     
@@ -123,7 +123,7 @@ public class PublicacionServlet extends HttpServlet {
     {
     	        int id = Integer.parseInt(request.getParameter("idPublicacion"));
     	        Publicacion existingPublicacion = publicacionDao.selectPub(id);
-    	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pub-form.jsp");
+    	        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/pub-form.jsp");
     	        request.setAttribute("publicacion", existingPublicacion);
     	        dispatcher.forward(request, response);
 
