@@ -19,7 +19,7 @@ public class CategoriaDao
     private static final String DELETE = "delete from categorias where id = ?;";
     private static final String UPDATE = "update categorias set idCategoria = ?, nombre = ? where id = ?;";
     
-    
+    public CategoriaDao() {}
     
     public void insertCategoria(Categoria cat) throws SQLException 
     {
