@@ -21,7 +21,7 @@ import model.Ciudad;;
 /**
  * Servlet implementation class PublicacionServlet
  */
-@WebServlet("/")
+@WebServlet(name = "PublicacionServlet", urlPatterns = { "/" })
 public class PublicacionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -114,7 +114,9 @@ public class PublicacionServlet extends HttpServlet {
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
     	    throws ServletException, IOException 
     {
-    	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pub-form.jsp");
+    	      	int idPublicacion = Integer.parseInt(request.getParameter("idPublicacion"));
+    	        request.setAttribute("idPublicacion",idPublicacion);
+    	      	RequestDispatcher dispatcher = request.getRequestDispatcher("/vistas/Item-Selected.jsp");
     	        dispatcher.forward(request, response);
     }
     
