@@ -21,7 +21,10 @@ import model.Ciudad;;
 /**
  * Servlet implementation class PublicacionServlet
  */
-@WebServlet(name = "PublicacionServlet", urlPatterns = { "/" })
+
+
+
+@WebServlet(name = "PublicacionServlet", urlPatterns = {"/"})
 public class PublicacionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

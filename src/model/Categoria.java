@@ -27,11 +27,11 @@ public class Categoria
 	
 	public Categoria() {}
 
-	public String getDescripcion() {
+	public String getNombre() {
 		return nombre;
 	}
-	public void setDescripcion(String descripcion) {
-		this.nombre = descripcion;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public int getIdCategoria() {
