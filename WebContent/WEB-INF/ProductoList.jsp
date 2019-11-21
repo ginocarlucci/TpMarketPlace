@@ -25,35 +25,8 @@
 </head>
 
 <body>
-
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="#">Start Bootstrap</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Services</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
+  <%@include file="plantillas/header.jsp"%>
+  <%@include file="modal/producto.jsp"%>
   <!-- Page Content -->
   <div class="container">
 
@@ -84,6 +57,7 @@
                 </h4>
                 <h5>${publicacion.getPrecio()}</h5>
                 <p class="card-text">${publicacion.getDescripcion()}</p>
+                <button type="button" class="btn btn-primary col-5"  data-toggle="modal" data-target="#modalQuickView" onclick="cargarModal(${publicacion.getIdPublicacion()})">Ver mas</button>
               </div>
               <div class="card-footer">
                 <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
@@ -93,10 +67,14 @@
           </c:forEach>
         </div>
       </div>
-      
-      
     </div>
   </div>
 </body>
-
 </html>
+
+<script>
+	function cargarModal(idProducto){
+		/*document.getElementById("precioProducto").innerHTML=;*/
+	}
+</script>
+

@@ -20,10 +20,10 @@ import dao.PublicacionDao;
 import dao.CiudadDao;
 import model.Categoria;
 import model.Publicacion;
-import model.Ciudad;;
+import model.Ciudad;
 
-@WebServlet(name = "InicioServlet", urlPatterns = {"/InicioServlet"})
-public class InicioServlet extends HttpServlet {
+@WebServlet(name = "InicioServlet", urlPatterns = {"/verProductos"})
+public class VerProductosServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private PublicacionDao publicacionDao;
@@ -35,12 +35,13 @@ public class InicioServlet extends HttpServlet {
 		categoriaDao = new CategoriaDao();
 		ciudadDao = new CiudadDao();
 	}
-    public InicioServlet() {
+    public VerProductosServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String action = request.getServletPath();
 		try {
 			cargarInicio(request,response);
 		} catch (SQLException e) {
@@ -56,7 +57,7 @@ public class InicioServlet extends HttpServlet {
         request.setAttribute("listPublicacion", listPublicacion);
         request.setAttribute("listCategoria", listCategoria);
         ///request.setAttribute("listCiudad", listCiudad);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/inicio.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/ProductoList.jsp");
         dispatcher.forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
