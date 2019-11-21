@@ -20,6 +20,10 @@ public class Categoria
 		this.idCategoriaPadre = idCategoriaPadre;
 	}
 	
+	public String getDescripcion() {
+		return nombre;
+	}
+	
 	public Categoria(int idCategoria,String descripcion) {
 		this.nombre = descripcion;
 		this.idCategoria = idCategoria;

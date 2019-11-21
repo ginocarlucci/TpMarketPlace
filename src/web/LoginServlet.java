@@ -20,7 +20,7 @@ import model.Publicacion;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/login")
+@WebServlet(name = "login", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private LoginDao login;
@@ -36,6 +36,12 @@ public class LoginServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/login.jsp");
+        dispatcher.forward(request, response);
+	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String email=request.getParameter("email");  
@@ -43,7 +49,7 @@ public class LoginServlet extends HttpServlet {
         
         if(login.validar(email, pw)==true)
         {
-        	response.sendRedirect("jsp/index.jsp");
+        	response.sendRedirect("");
         }  
        else{  
 
