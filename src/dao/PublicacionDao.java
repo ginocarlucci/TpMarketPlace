@@ -18,7 +18,7 @@ public class PublicacionDao
     
     private static final String INSERT = "INSERT INTO publicaciones" + "(descripcion, precio, titulo, stock, idCategoria, idCiudad) VALUES" +
             " (?,?,?,?,?);";;
-    private static final String SELECT_PUB_BY_ID = "select idPublicacion from publicaciones where idPublicacion = ?";
+    private static final String SELECT_PUB_BY_ID = "select * from publicaciones where id = ?";
     private static final String SELECT = "select * from publicaciones";
     private static final String SELECT_PUB_BY_CATEGORIA = "select * from publicaciones where idCategoria = ?";
     private static final String DELETE = "delete from publicaciones where idPublicacion = ?;";
@@ -52,11 +52,10 @@ public class PublicacionDao
         try (Connection connection = Conexion.getConnection();
             // Step 2:Create a statement using connection object
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PUB_BY_ID);) {
+        	
             preparedStatement.setInt(1, id);
-            System.out.println(preparedStatement);
             // Step 3: Execute the query or update query
             ResultSet rs = preparedStatement.executeQuery();
-
             // Step 4: Process the ResultSet object.
             while (rs.next()) {
                 String descripcion = rs.getString("descripcion");
@@ -83,7 +82,6 @@ public class PublicacionDao
             // Step 2:Create a statement using connection object
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PUB_BY_CATEGORIA);) {
         	preparedStatement.setInt(1, idCat);
-            System.out.println(preparedStatement);
             // Step 3: Execute the query or update query
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -113,7 +111,6 @@ public class PublicacionDao
 
             // Step 2:Create a statement using connection object
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT);) {
-            System.out.println(preparedStatement);
             // Step 3: Execute the query or update query
             ResultSet rs = preparedStatement.executeQuery();
 

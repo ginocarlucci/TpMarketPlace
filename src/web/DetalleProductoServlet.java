@@ -21,9 +21,9 @@ import dao.CiudadDao;
 import model.Categoria;
 import model.Publicacion;
 import model.Ciudad;
-
-@WebServlet(name = "VerProducto", urlPatterns = {"/verProductos"})
-public class VerProductosServlet extends HttpServlet {
+import com.google.gson.*;
+@WebServlet(name = "DetalleProducto", urlPatterns = {"/detalleProducto"})
+public class DetalleProductoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private PublicacionDao publicacionDao;
@@ -35,32 +35,23 @@ public class VerProductosServlet extends HttpServlet {
 		categoriaDao = new CategoriaDao();
 		ciudadDao = new CiudadDao();
 	}
-    public VerProductosServlet() {
+    public DetalleProductoServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		try {
-			buscarProductos(request,response);
-		} catch (SQLException e) {
-			e.getMessage();
-		}
+		
 	}
 
-	private void buscarProductos(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException 
-	{
-		List < Publicacion > listPublicacion = publicacionDao.selectAllPub();
-        List < Categoria > listCategoria = categoriaDao.selectAll();
-        ///List < Ciudad > listCiudad = ciudadDao.GetAll();
-        request.setAttribute("listPublicacion", listPublicacion);
-        request.setAttribute("listCategoria", listCategoria);
-        ///request.setAttribute("listCiudad", listCiudad);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/ProductoList.jsp");
-        dispatcher.forward(request, response);
-	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		Publicacion publicacion = publicacionDao.selectPub(Integer.parseInt(request.getParameter("idPublicacion")));
+		//List < Publicacion > listPublicacion = publicacionDao.selectAllPub();
+		String json = new Gson().toJson(publicacion);
+		response.setContentType("application/json");
+	    response.setCharacterEncoding("UTF-8");
+	    response.getWriter().write(json);
 	}
 
 }

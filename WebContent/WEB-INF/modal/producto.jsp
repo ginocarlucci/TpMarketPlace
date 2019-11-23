@@ -1,8 +1,3 @@
-<script>
-$(document).ready(function() {
-	$('.mdb-select').materialSelect();
-});
-</script>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- Modal: modalQuickView -->
@@ -101,32 +96,7 @@ $(document).ready(function() {
 
             <!-- Add to Cart -->
             <div class="card-body">
-              <div class="row">
-                <div class="col-md-6">
-
-                  <select class="md-form mdb-select colorful-select dropdown-primary">
-                    <option value="" disabled selected>Choose your option</option>
-                    <option value="1">White</option>
-                    <option value="2">Black</option>
-                    <option value="3">Pink</option>
-                  </select>
-                  <label>Select color</label>
-
-                </div>
-                <div class="col-md-6">
-
-                  <select class="md-form mdb-select colorful-select dropdown-primary">
-                    <option value="" disabled selected>Choose your option</option>
-                    <option value="1">XS</option>
-                    <option value="2">S</option>
-                    <option value="3">L</option>
-                  </select>
-                  <label>Select size</label>
-
-                </div>
-              </div>
               <div class="text-center">
-
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button class="btn btn-primary">Add to cart
                   <i class="fas fa-cart-plus ml-2" aria-hidden="true"></i>
