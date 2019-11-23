@@ -77,7 +77,6 @@
 
 <script>
 	function cargarModal(idPublicacion){
-		console.log(idPublicacion);
 		$.ajax({
             type : "POST",
             data : {
