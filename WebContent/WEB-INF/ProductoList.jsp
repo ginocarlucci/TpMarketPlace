@@ -40,7 +40,12 @@
         <h1 class="my-4">Shop Name</h1>
         <div class="list-group" id="categorias">
         <c:forEach items="${listCategoria}" var="categoria">
-          <a href="#" class="list-group-item">${categoria.getNombre()}</a>
+          <form id="form${categoria.getIdCategoria()}" method="post" action="<%=request.getContextPath()%>/productosByCategoria">
+		  <input type="hidden" name="idCategoria" value="${categoria.getIdCategoria()}">
+		  </form>
+          <a href="#" class="list-group-item" onclick="document.getElementById('form${categoria.getIdCategoria()}').submit()">
+          ${categoria.getNombre()}
+          </a>
         </c:forEach>
         </div>
 

@@ -47,7 +47,6 @@ public class DetalleProductoServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Publicacion publicacion = publicacionDao.selectPub(Integer.parseInt(request.getParameter("idPublicacion")));
-		//List < Publicacion > listPublicacion = publicacionDao.selectAllPub();
 		String json = new Gson().toJson(publicacion);
 		response.setContentType("application/json");
 	    response.setCharacterEncoding("UTF-8");
