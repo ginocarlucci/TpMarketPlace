@@ -48,6 +48,14 @@ public class ProductoByCategoria extends HttpServlet {
 	{
 		int idCategoria = Integer.parseInt(request.getParameter("idCategoria"));
 		List < Publicacion > listPublicacion = publicacionDao.selectAllPubByCat(idCategoria);
+		//busco las categorias hijas
+		List <Categoria> listCategoriasHijas = categoriaDao.selectAllCatByCat(idCategoria);
+		for(Categoria cat : listCategoriasHijas) {
+			List <Publicacion> pub = publicacionDao.selectAllPubByCat(cat.getIdCategoria());
+			for(Publicacion p : pub) {
+				listPublicacion.add(p);
+			}
+		}
         List < Categoria > listCategoria = categoriaDao.selectAll();
         request.setAttribute("listPublicacion", listPublicacion);
         request.setAttribute("listCategoria", listCategoria);
