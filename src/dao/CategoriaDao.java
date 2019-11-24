@@ -28,7 +28,7 @@ public class CategoriaDao
         try (Connection connection = Conexion.getConnection();PreparedStatement preparedStatement = connection.prepareStatement(INSERT))
         	{
 	            preparedStatement.setInt(1, cat.getIdCategoria());
-	        	preparedStatement.setString(2, cat.getDescripcion());
+	        	preparedStatement.setString(2, cat.getNombre());
 	            System.out.println(preparedStatement);
 	            preparedStatement.executeUpdate();
         	} 
@@ -134,7 +134,7 @@ public class CategoriaDao
         boolean rowUpdated;
         try (Connection connection = Conexion.getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE);) {
             statement.setInt(1, cat.getIdCategoriaPadre());
-            statement.setString(2, cat.getDescripcion());
+            statement.setString(2, cat.getNombre());
 	        statement.setInt(3,cat.getIdCategoria());
             
             rowUpdated = statement.executeUpdate() > 0;
