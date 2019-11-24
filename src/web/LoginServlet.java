@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
             dispatcher.forward(request, response);
         case "/cerrarlogin":
         	Usuario usr = null;
-            RequestDispatcher dispatcher1 = request.getRequestDispatcher("asd");
+            RequestDispatcher dispatcher1 = request.getRequestDispatcher("jsp/login.jsp");
             dispatcher1.forward(request, response);
             break;
         default:
@@ -82,21 +82,7 @@ public class LoginServlet extends HttpServlet {
         {
             throw new ServletException(ex);
         }
-        
-        /*if(login.validar(email, pw)==true)
-        {
-        	Usuario usr = new Usuario();
-        	UsuarioDao usrDao = new UsuarioDao();
-        	usr = usrDao.obtenerUsuario(email, pw);
-        	HttpSession misession= request.getSession(true);
-        	misession.setAttribute("usuario",usr);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("");
-            dispatcher.forward(request, response);
-        }  
-       else{  
 
-    	   response.sendRedirect("jsp/ingresomal.jsp");
-        }  */
 
 	}
 	
