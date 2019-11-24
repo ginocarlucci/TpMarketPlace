@@ -21,6 +21,9 @@
           <li class="nav-item">
             <a class="nav-link" href="login">Iniciar sesion</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="cerrarlogin">Cerrar sesion</a>
+          </li>
         </ul>
       </div>
     </div>

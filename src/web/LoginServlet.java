@@ -10,11 +10,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.LoginDao;
+import dao.UsuarioDao;
 import model.Categoria;
 import model.Ciudad;
 import model.Publicacion;
+import model.Usuario;
 
 
 /**
@@ -38,23 +41,62 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/login.jsp");
-        dispatcher.forward(request, response);
+        String action = request.getServletPath();
+        switch (action) {
+        case "/login":
+            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/login.jsp");
+            dispatcher.forward(request, response);
+        case "/cerrarlogin":
+        	Usuario usr = null;
+            RequestDispatcher dispatcher1 = request.getRequestDispatcher("asd");
+            dispatcher1.forward(request, response);
+            break;
+        default:
+            break;
+		}
+        
+        
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String email=request.getParameter("email");  
-        String pw=request.getParameter("pass");  
-        
-        if(login.validar(email, pw)==true)
+		
+		try{
+            		String email=request.getParameter("email");  
+                    String pw=request.getParameter("pass");  
+                	if(login.validar(email, pw)==true)
+                    {
+                    	Usuario usr = new Usuario();
+                    	UsuarioDao usrDao = new UsuarioDao();
+                    	usr = usrDao.obtenerUsuario(email, pw);
+                    	HttpSession misession= request.getSession(true);
+                    	misession.setAttribute("usuario",usr);
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("");
+                        dispatcher.forward(request, response);
+                    }  
+                   else{  
+
+                	   response.sendRedirect("jsp/ingresomal.jsp");
+                    }  
+        } catch (Exception ex) 
         {
-        	response.sendRedirect("");
+            throw new ServletException(ex);
+        }
+        
+        /*if(login.validar(email, pw)==true)
+        {
+        	Usuario usr = new Usuario();
+        	UsuarioDao usrDao = new UsuarioDao();
+        	usr = usrDao.obtenerUsuario(email, pw);
+        	HttpSession misession= request.getSession(true);
+        	misession.setAttribute("usuario",usr);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("");
+            dispatcher.forward(request, response);
         }  
        else{  
 
     	   response.sendRedirect("jsp/ingresomal.jsp");
-        }  
+        }  */
 
 	}
 	

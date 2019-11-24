@@ -103,6 +103,40 @@ public class UsuarioDao
         }
         return usr;
     }
+    
+	private static final String SELECTUSUARIO = "select * from usuarios where email = ? and password = ?";
+	
+	
+    public Usuario obtenerUsuario(String e, String pw) 
+    {
+    	//Usuario usr = null; 
+        // Step 1: Establishing a Connection
+    	Usuario usr = null; 
+        try (Connection connection = Conexion.getConnection();
+            // Step 2:Create a statement using connection object
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECTUSUARIO);) {
+            preparedStatement.setString(1, e);
+            preparedStatement.setString(2, pw);
+            System.out.println(preparedStatement);
+            // Step 3: Execute the query or update query
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+            	String nombreYApellido = rs.getString("nombreYApellido");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                String domicilio = rs.getString("domicilio");
+                String telefono = rs.getString("telefono");
+                int idCiudad = rs.getInt("idCiudad");
+                int admin = rs.getInt("admin");
+                
+                usr = new Usuario(id, idCiudad,admin, nombreYApellido, password, email, domicilio, telefono);}
+
+        } catch (SQLException e1) {
+            printSQLException(e1);
+        }
+        return usr;
+    }
 
     
     public boolean Delete(int id) throws SQLException {

@@ -35,6 +35,7 @@
       <div class="col-lg-3">
 
         <h1 class="my-4">Shop Name</h1>
+        <p class="card-text">${usuario.getEmail()}</p>
         <div class="list-group" id="categorias">
         <c:forEach items="${listCategoria}" var="categoria">
           <a href="#" class="list-group-item">${categoria.getNombre()}</a>

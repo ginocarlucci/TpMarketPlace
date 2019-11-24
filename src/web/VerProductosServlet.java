@@ -10,11 +10,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Categoria;
 import model.Ciudad;
 import model.Publicacion;
-
+import model.Usuario;
 import dao.CategoriaDao;
 import dao.PublicacionDao;
 import dao.CiudadDao;
@@ -29,11 +30,15 @@ public class VerProductosServlet extends HttpServlet {
 	private PublicacionDao publicacionDao;
 	private CategoriaDao categoriaDao;
 	private CiudadDao ciudadDao;
+	private Usuario usr;
+	
 	public void init() 
 	{
 		publicacionDao = new PublicacionDao();
 		categoriaDao = new CategoriaDao();
 		ciudadDao = new CiudadDao();
+		usr = null;
+		
 	}
     public VerProductosServlet() {
         super();
@@ -51,6 +56,8 @@ public class VerProductosServlet extends HttpServlet {
 
 	private void cargarInicio(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException 
 	{
+		HttpSession misession= (HttpSession) request.getSession();
+		Usuario usr = (Usuario) misession.getAttribute("usuario");
 		List < Publicacion > listPublicacion = publicacionDao.selectAllPub();
         List < Categoria > listCategoria = categoriaDao.selectAll();
         ///List < Ciudad > listCiudad = ciudadDao.GetAll();
