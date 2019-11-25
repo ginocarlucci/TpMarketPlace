@@ -22,7 +22,7 @@
             <a class="nav-link" href="login">Iniciar sesion</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="cerrarlogin">Cerrar sesion</a>
+            <a class="nav-link" href="jsp/cerrarlogin.jsp" >Cerrar sesion</a>
           </li>
         </ul>
       </div>
