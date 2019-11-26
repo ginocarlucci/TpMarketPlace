@@ -1,10 +1,10 @@
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Nuevo Producto</title>
+	<title>Perfil</title>
 
 
 	
@@ -42,7 +42,7 @@
   <title>MarketPlace</title>
 </head>
 <body>
-	<%@include file="/WEB-INF/plantillas/header.jsp"%>
+ 	<%@include file="/WEB-INF/plantillas/header.jsp"%>
 	<div class="limiter" align="Center">
 	<br/>
  	<br/>
@@ -54,11 +54,11 @@
 
 				<form class="login100-form validate-form" method="post" action="<%=request.getContextPath()%>nuevoProducto">
 					<span class="login100-form-title">
-						Nuevo Producto
+						Información Personal
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="titulo" placeholder="Titulo">
+						<input class="input100" type="text" name="nombreCompleto" placeholder="Nombre Completo">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
@@ -66,7 +66,7 @@
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<input class="input100" type="text" name="descripcion" placeholder="Descripcion">
+						<input class="input100" type="text" name="email" placeholder="Email">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
@@ -74,7 +74,7 @@
 					</div>
 					
 					<div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<input class="input100" type="number" name="stock" placeholder="Stock">
+						<input class="input100" type="text" name="domicilio" placeholder="Domicilio">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
@@ -82,7 +82,7 @@
 					</div>
 					
 					<div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<input class="input100" type="number" name="precio" placeholder="Precio">
+						<input class="input100" type="text" name="telefono" placeholder="Telefono">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
@@ -91,7 +91,7 @@
 					
 					
 					<div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<input class="input100" type="number" name="idCategoria" placeholder="ID Categoria">
+						<input class="input100" type="number" name="idCiudad" placeholder="ID Ciudad">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>

@@ -19,10 +19,10 @@
             <a class="nav-link" href="#">Services</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="login">Iniciar sesion</a>
+            <a class="nav-link" href="jsp/nuevoProducto.jsp">Nuevo Producto</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="jsp/nuevoProducto.jsp">Nuevo Producto</a>
+            <a class="nav-link" href="jsp/perfil.jsp">Perfil</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="login?accion=cerrarlogin" >Cerrar sesion</a>
